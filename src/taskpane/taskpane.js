@@ -11,13 +11,6 @@ import "../../assets/icon-80.png";
 import React, { Component } from 'react';
 const axios = require('axios');
 
-
-//const express = require('express')
-//const app = express()
-//var cors = require('cors');
-//app.use(cors());
-
-
 /* global document, Office */
 
 Office.onReady(info => {
@@ -201,12 +194,6 @@ async function asyncCall() {
 
 
 export async function run() {
-  /**
-   * Insert your Outlook code here
-   */
-
-
-   
 var mailItem = Office.context.mailbox.item;
 
 mailItem.body.getAsync(Office.CoercionType.Text, function (result) {
@@ -225,43 +212,100 @@ mailItem.body.getAsync(Office.CoercionType.Text, function (result) {
                 if (result.status === Office.AsyncResultStatus.Succeeded) {
                     // the value will be initialized in input value
                     
+                    var spam_words_arr=new Array(
+                      "loan",
+                      "winning",
+                      "bulk email",
+                      "mortgage",
+                      "free",
+                      "save",
+                      "credit",
+                      "amazing",
+                      "bulk",
+                      "email",
+                      "opportunity",
+                      "please read",
+                      "reverses aging",
+                      "hidden assets",
+                      "stop snoring",
+                      "free investment",
+                      "dig up dirt on friends",
+                      "stock disclaimer statement",
+                      "multi level marketing",
+                      "compare rates",
+                      "cable converter",
+                      "claims you can be removed from the list",
+                      "removes wrinkles",
+                      "compete for your business",
+                      "free installation",
+                      "free grant money",
+                      "auto email removal",
+                      "collect child support",
+                      "free leads",
+                      "amazing stuff",
+                      "tells you it's an ad",
+                      "cash bonus",
+                      "promise you",
+                      "claims to be in accordance with some spam law",
+                      "search engine listings",
+                      "free preview",
+                      "act now! don't hesitate",
+                      "credit bureaus",
+                      "no investment",
+                      "obligation",
+                      "guarantee",
+                      "refinance",
+                      "price",
+                      "affordable",
+                      "home loan",
+                      "lower your monthly payments",
+                      "new low rate",
+                      "Your Mortgage",
+                      "Your refi",
+                      "serious cash"); 
+                      
+                      
+                      let p = 'The quick brown one fox jumps over the lazy dog. If two the dog reacted, was it really lazy?';
+
+                      const regexChar = /[^a-zA-Z0-9 ]/gi;
+                      
+                      const regmat = new RegExp('\\b(?:' + spam_words_arr.join('|') + ')\\b','gi');
+
+                      //var re = RegExp("(?:^\\W*|(" + before.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")\\W+)" + error.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?:\\W+(" + after.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")|\\W*$)", "g"); 
 
 
 
-                    /*var data = JSON.stringify({"email_text":"Dear Tasdik, I would like to immediately transfer 10000 thousand dollars to your account as my beloved husband has expired and I have nobody to ask for to transfer the money to your account. I come from the family of the royal prince of burkino fasa and I would be more than obliged to take your help on this matter. Would you care to share your bank account details with me in the next email conversation that we have? -regards -Liah herman"});
-
-                    var xhr = new XMLHttpRequest();
-                    xhr.withCredentials = true;
+                    //   function matchWords(subject, words) {
+                    //     var regexMetachars = /[(){[*+?.\\^$|]/g;
                     
-                    xhr.addEventListener("readystatechange", function() {
-                      if(this.readyState === 4) {
-                        console.log(this.responseText);
+                    //     for (var i = 0; i < words.length; i++) {
+                    //         words[i] = words[i].replace(regexMetachars, "\\$&");
+                    //     }
+                    
+                    //     var regex = new RegExp("\\b(?:" + words.join("|") + ")\\b", "gi");
+                    
+                    //     return subject.match(regex) || [];
+                    // }
+                    
+                    // matchWords(subject, ["one","two","three"]);
+
+                      
+                      try{
+                        p = result.value.replace(regexChar, ' ');
+                        if (result.value.match(regmat) > 0){
+                          document.getElementById("item-subject").innerHTML = "<b>There are these spamy words included in the payload: </b> <br/>" + result.value.match(regmat)
+                          document.getElementById("item-subject2").innerHTML = "<b>This email might be an spam</b> <br/>"
+                        }else{
+                          document.getElementById("item-subject").innerHTML = "<b>There are no spamy words included in the payload:</b> <br/>" 
+                        }
+                      }catch(e){
+                        document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + e;
                       }
-                    });
+                    //let vel = result.value.toLowerCase();
                     
-                    xhr.open("POST", "https://plino.herokuapp.com/api/v1/classify/");
-                    xhr.setRequestHeader("Content-Type", "application/json");
-                    
-                    let lll = xhr.send(data);
-                    
-                    document.getElementById("why").innerHTML = "<b>Subject:</b> <br/>" + result.value.trim();*/
-                    
-                    //asyncCall().then(re => document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + re)
-
-                    
-
-                   // document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + result.value.trim();
-                    //document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + result.status();
-                    //document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + result.headers;
-                    
-                    //document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + result.value.search("Subject");
-                    
-
-                    let vel = result.value.toLowerCase();
-                    
-                    let pos = vel.search("subject");
-                    let header = vel.search("header");
-                    document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + pos;
+                    // let pos = vel.search("subject");
+                    // let header = vel.search("header");
+                   // document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + pos;
 
                     // vel.forEach((ele) => {
                     //   if(ele.search("Subject") > 0){
@@ -271,7 +315,7 @@ mailItem.body.getAsync(Office.CoercionType.Text, function (result) {
 
 
                     
-                    document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + result.value;
+                    //document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + result.value;
 
                     
 
