@@ -262,7 +262,19 @@ mailItem.body.getAsync(Office.CoercionType.Text, function (result) {
                       "new low rate",
                       "Your Mortgage",
                       "Your refi",
-                      "serious cash"); 
+                      "serious cash",
+                      "personal",
+                      "sale","cheap","deals","coupon","returned mail","refused to receive","returned to sender","cannot send message","attachment removed","infected message","undelivered mail","delivery status","virus infection","suspected spam","invite to join","banned content","mail scanner","Act now","Action","Apply now","Apply online","Buy","Buy direct","Call","Call now","Click here","Clearance","Click here","Do it today","Don’t delete","Drastically reduced","Exclusive deal","Expire","Get","Get it now","Get started now","Important information regarding","Instant","Limited time","New customers only","Now only","Offer expires","Once in a lifetime","Order now","Please read","Special promotion","Take action","This won’t last","Urgent","While stocks last","100%","All-new","Bargain","Best price","Bonus","Email marketing","Free","For instant access","Free gift","Free trial","Have you been turned down?","Great offer","Join millions of Americans","Incredible deal","Prize","Satisfaction guaranteed","Will not believe your eyes","As seen on","Click here","Click below","Deal","Direct email","Direct marketing","Do it today","Order now","Order today","Unlimited","What are you waiting for?","Visit our website","Acceptance","Access","Avoid bankruptcy","Boss","Cancel","Card accepted","Certified","Cheap","Compare","Compare rates","Congratulations","Credit card offers","Cures","Dear [personalization variable]","Dear friend","Drastically reduced","Easy terms","Free grant money","Free hosting","Free info","Free membership","Friend","Get out of debt","Giving away","Guarantee","Guaranteed","Have you been turned down?","Hello","Information you requested","Join millions","No age restrictions","No catch","No experience","No obligation","No purchase necessary","No questions asked","No strings attached","Offer","Opportunity","Save big","Winner","Winning","Won","You are a winner!","You’ve been selected!","Additional income","All-natural","Amazing","Be your own boss","Big bucks","Billion","Billion dollars","Cash","Cash bonus","Consolidate debt and credit","Consolidate your debt","Double your income","Earn","Earn cash","Earn extra cash","Eliminate bad credit","Eliminate debt","Extra","Fantastic deal","Financial freedom","Financially independent","Free investment","Free money","Get paid","Home","Home-based","Income","Increase sales","Increase traffic","Lose","Lose weight","Money back","No catch","No fees","No hidden costs","No strings attached","Potential earnings","Pure profit","Removes wrinkles","Reverses aging","Risk-free","Serious cash","Stop snoring","Vacation","Vacation offers","Weekend getaway","Weight loss","While you sleep","Work from home","Addresses","Beneficiary","Billing","Casino","Celebrity","Collect child support","Copy DVDs","Fast viagra delivery","Hidden","Human growth hormone","In accordance with laws","Investment","Junk","Legal","Life insurance","Loan","Lottery","Luxury car","Medicine","Meet singles","Message contains","Miracle","Money","Multi-level marketing","Nigerian","Offshore","Online degree","Online pharmacy","Passwords","Refinance","Request","Rolex","Score","Social security number","Spam","This isn’t spam","Undisclosed recipient","University diplomas","Unsecured credit","Unsolicited","US dollars","Valium","Viagra","Vicodin","Warranty","Xanax"
+                      
+                      ); 
+
+
+
+
+
+
+
+
                       
                       
                       let p = 'The quick brown one fox jumps over the lazy dog. If two the dog reacted, was it really lazy?';
@@ -270,6 +282,10 @@ mailItem.body.getAsync(Office.CoercionType.Text, function (result) {
                       const regexChar = /[^a-zA-Z0-9 ]/gi;
                       
                       const regmat = new RegExp('\\b(?:' + spam_words_arr.join('|') + ')\\b','gi');
+
+
+
+
 
                       //var re = RegExp("(?:^\\W*|(" + before.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")\\W+)" + error.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?:\\W+(" + after.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")|\\W*$)", "g"); 
 
@@ -292,14 +308,16 @@ mailItem.body.getAsync(Office.CoercionType.Text, function (result) {
                       
                       try{
                         p = result.value.replace(regexChar, ' ');
-                        if (result.value.match(regmat) > 0){
+                        //document.getElementById("item-subject").innerHTML = "<b>There are these spamy words included in the payload: </b> <br/>" + (result.value.match(regmat).length > 0)
+
+                        if (result.value.match(regmat).length > 0){
                           document.getElementById("item-subject").innerHTML = "<b>There are these spamy words included in the payload: </b> <br/>" + result.value.match(regmat)
                           document.getElementById("item-subject2").innerHTML = "<b>This email might be an spam</b> <br/>"
                         }else{
-                          document.getElementById("item-subject").innerHTML = "<b>There are no spamy words included in the payload:</b> <br/>" 
+                          //document.getElementById("item-subject").innerHTML = "<b>There are no spamy words included in the payload:</b> <br/>" 
                         }
                       }catch(e){
-                        document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + e;
+                        //document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + e;
                       }
                     //let vel = result.value.toLowerCase();
                     
