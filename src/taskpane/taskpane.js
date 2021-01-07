@@ -222,7 +222,6 @@ mailItem.body.getAsync(Office.CoercionType.Text, function (result) {
                       "credit",
                       "amazing",
                       "bulk",
-                      "email",
                       "opportunity",
                       "please read",
                       "reverses aging",
@@ -314,7 +313,7 @@ mailItem.body.getAsync(Office.CoercionType.Text, function (result) {
                           document.getElementById("item-subject").innerHTML = "<b>There are these spamy words included in the payload: </b> <br/>" + result.value.match(regmat)
                           document.getElementById("item-subject2").innerHTML = "<b>This email might be an spam</b> <br/>"
                         }else{
-                          //document.getElementById("item-subject").innerHTML = "<b>There are no spamy words included in the payload:</b> <br/>" 
+                          document.getElementById("item-subject").innerHTML = "<b>There are no spamy words included in the payload:</b> <br/>" 
                         }
                       }catch(e){
                         //document.getElementById("item-subject").innerHTML = "<b>Subject:</b> <br/>" + e;
